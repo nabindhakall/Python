@@ -7,7 +7,7 @@ from struct import pack
 
 floor_2 = ['nothing', 'stairs down', 'monster', 'magic stones', 'sword']
 floor_1 = ['stairs up', 'sword', 'stairs down', 'monster', 'sword']
-ground_floor = ['sword', 'stairs up', 'sword', 'moster', 'boss']
+ground_floor = ['sword', 'stairs up', 'sword', 'monster', 'boss']
 
 #initial position of user
 current_floor = floor_2
@@ -18,12 +18,21 @@ player_won = False
 player_alive = True
 fighterbag = []
 
+name = input("Please enter your name!")
+print(f"{name}, Welcome to the game!")
+print("Here are some instructions on how to play the game")
+print("There are three floors and five rooms in each floor. You will start at the top floor.")
+print("The room contains magic stoones, sword, monster, and boss.")
+print("Monsters can be killed by the sword and magic stones.")
+print("Type left, right, up, and down to move from one room to another")
+print("You will have to kill the boss to win the game.")
+
 #while loop of the whole game
 while player_alive and player_won == False:
     print("You are in a room. There is", current_floor[current_room], "in the room.")
 
 #asking user whats the next move.
-    current_move = input("Where would you like to go? \n")
+    current_move = input("What would you like to do? \n")
 
 #if statement when the user types left
     if current_move == "left":
@@ -33,10 +42,12 @@ while player_alive and player_won == False:
             print("You try to run away from the monster.")
             if random.randint(0, 10) > 4:
                 print("You successfully run away from the monster!")
-                current_room = current_room -1
+                current_room = current_room - 1
+            else:
+                print("The monster stabs you before you can get away.")
+                player_alive = False
         else:
-            print("The monster stabs you before you can get away.")
-            player_alive = False
+            current_room = current_room - 1
 
 #if statement when the user types right
     elif current_move == "right":
@@ -47,9 +58,11 @@ while player_alive and player_won == False:
             if random.randint(0, 10) > 4:
                 print("You successfully run away from the monster!")
                 current_room = current_room + 1
+            else:
+                print("The monster stabs you before you can get away.")
+                player_alive = False
         else:
-            print("The monster stabs you before you can get away.")
-            player_alive = False
+            current_room = current_room + 1
 
 #if statement when the user types up
     elif current_move == "up":
@@ -130,6 +143,6 @@ while player_alive and player_won == False:
 
 #The result of the game Win or Lose.
 if player_won:
-    print("Congtaulations you have won the game.")
+    print("Congratulations you have won the game.")
 if player_alive == False:
     print("Sorry, you have been killed and you lost the game. Better luck next time.")
